@@ -35,4 +35,4 @@ jobs:
         env:
           MOYUPAI_USERNAME: ${{ secrets.MOYUPAI_USERNAME }}
           MOYUPAI_PASSWORD: ${{ secrets.MOYUPAI_PASSWORD }}
-        run: /usr/bin/python3.9 moyupai.py $MOYUPAI_USERNAME $MOYUPAI_PASSWORD
+        run: /path/to/python3.9 /path/to/moyupai.py $MOYUPAI_USERNAME $MOYUPAI_PASSWORD
