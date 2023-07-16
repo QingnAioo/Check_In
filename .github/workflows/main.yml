@@ -1,4 +1,4 @@
-name: selenium
+name: Run moyupai.py
 
 # Controls when the action will run.
 on:
@@ -6,8 +6,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  # This workflow contains a single job called "run-moyupai"
+  run-moyupai:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
 
@@ -19,6 +19,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
+        id: setup-python
 
       - name: 'Install dependencies'
         run: |
@@ -35,4 +36,4 @@ jobs:
         env:
           MOYUPAI_USERNAME: ${{ secrets.MOYUPAI_USERNAME }}
           MOYUPAI_PASSWORD: ${{ secrets.MOYUPAI_PASSWORD }}
-        run: /path/to/python3.9 /path/to/moyupai.py $MOYUPAI_USERNAME $MOYUPAI_PASSWORD
+        run: ${{ steps.setup-python.outputs.add-path }}/python /path/to/moyupai.py $MOYUPAI_USERNAME $MOYUPAI_PASSWORD
