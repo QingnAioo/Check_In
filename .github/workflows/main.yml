@@ -1,29 +1,38 @@
 name: selenium
 
+# Controls when the action will run.
 on:
   workflow_dispatch:
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # This workflow contains a single job called "build"
   build:
-    runs-on: ubuntu-latest
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set up Python
+      - name: 'Set up Python'
         uses: actions/setup-python@v2
         with:
-          python-version: 3.6
+          python-version: 3.9
 
-      - name: Install requirements
+      - name: 'Install dependencies'
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install pytesseract Pillow
 
       - name: Prepare chromedriver
         uses: nanasess/setup-chromedriver@v1
+        with:
+          chrome-version: 'latest'
 
-      - name: Run Selenium
-        run: |
-          python path/to/modified_gamekegs.py ${{ secrets.GAMEKEGS_USERNAME }} ${{ secrets.GAMEKEGS_PASSWORD }}
+      - name: Run moyupai.py
+        env:
+          MOYUPAI_USERNAME: ${{ secrets.MOYUPAI_USERNAME }}
+          MOYUPAI_PASSWORD: ${{ secrets.MOYUPAI_PASSWORD }}
+        run: /usr/bin/python3.9 ./gamekegs.py ${{ secrets.GAMEKEGS_USERNAME }} ${{ secrets.GAMEKEGS_PASSWORD }}
