@@ -26,4 +26,4 @@ jobs:
       env:
         xjsp0627: ${{ secrets.XJSP0627 }}
       run: |
-        node ./xj.js
+        node xj.js
