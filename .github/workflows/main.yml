@@ -1,39 +1,30 @@
-name: Run moyupai.py
+name: 香蕉视频破解
 
-# Controls when the action will run.
 on:
-  workflow_dispatch:
+  # 每天早上 10 点和晚上 22 点执行任务
+  schedule:
+    - cron: "0 2,14 * * *"
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "run-moyupai"
-  run-moyupai:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
+  build:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
 
-      - name: 'Set up Python'
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-        id: setup-python
+    - name: Set up Node.js
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: "14"
 
-      - name: 'Install dependencies'
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytesseract Pillow
+    - name: Install dependencies
+      run: |
+        npm install
+        npm install -g pm2
 
-      - name: Prepare chromedriver
-        uses: nanasess/setup-chromedriver@v1
-        with:
-          chrome-version: 'latest'
-
-      - name: Run moyupai.py
-        env:
-          MOYUPAI_USERNAME: ${{ secrets.MOYUPAI_USERNAME }}
-          MOYUPAI_PASSWORD: ${{ secrets.MOYUPAI_PASSWORD }}
-        run: ${{ steps.setup-python.outputs.add-path }}/python /path/to/moyupai.py $MOYUPAI_USERNAME $MOYUPAI_PASSWORD
+    - name: Run script
+      env:
+        xjsp0627: ${{ secrets.XJSP0627 }}
+      run: |
+        node ./xj.js
