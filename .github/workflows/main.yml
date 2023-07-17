@@ -1,9 +1,8 @@
 name: 香蕉视频破解
 
 on:
-  # 每天早上 10 点和晚上 22 点执行任务
-  schedule:
-    - cron: "0 2,14 * * *"
+  
+  workflow_dispatch:
 
 jobs:
   build:
